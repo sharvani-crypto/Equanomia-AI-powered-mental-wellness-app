@@ -1,0 +1,1 @@
+# Equanomia-AI-powered-mental-wellness-app
