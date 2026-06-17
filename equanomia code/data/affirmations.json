@@ -1,0 +1,124 @@
+{
+  "affirmations": [
+    {
+      "id": 1,
+      "text": "You are enough, exactly as you are.",
+      "category": "self-love",
+      "emoji": "💗"
+    },
+    {
+      "id": 2,
+      "text": "Take things one breath at a time.",
+      "category": "calm",
+      "emoji": "🌸"
+    },
+    {
+      "id": 3,
+      "text": "Your feelings are valid and heard.",
+      "category": "validation",
+      "emoji": "🤗"
+    },
+    {
+      "id": 4,
+      "text": "You have the strength to get through this.",
+      "category": "strength",
+      "emoji": "💪"
+    },
+    {
+      "id": 5,
+      "text": "Every small step forward matters.",
+      "category": "progress",
+      "emoji": "🌱"
+    },
+    {
+      "id": 6,
+      "text": "You deserve peace and happiness.",
+      "category": "self-love",
+      "emoji": "✨"
+    },
+    {
+      "id": 7,
+      "text": "This moment too shall pass.",
+      "category": "calm",
+      "emoji": "🌊"
+    },
+    {
+      "id": 8,
+      "text": "You are worthy of love and kindness.",
+      "category": "self-love",
+      "emoji": "💞"
+    },
+    {
+      "id": 9,
+      "text": "Breathe. You are safe right now.",
+      "category": "calm",
+      "emoji": "🌿"
+    },
+    {
+      "id": 10,
+      "text": "Growth happens at your own pace.",
+      "category": "progress",
+      "emoji": "🦋"
+    },
+    {
+      "id": 11,
+      "text": "Be gentle with yourself today.",
+      "category": "self-care",
+      "emoji": "🌷"
+    },
+    {
+      "id": 12,
+      "text": "Your journey is uniquely beautiful.",
+      "category": "self-love",
+      "emoji": "🌟"
+    },
+    {
+      "id": 13,
+      "text": "You are not your thoughts.",
+      "category": "mindfulness",
+      "emoji": "🧘"
+    },
+    {
+      "id": 14,
+      "text": "Healing is not linear — and that's okay.",
+      "category": "healing",
+      "emoji": "🌈"
+    },
+    {
+      "id": 15,
+      "text": "You are doing better than you think.",
+      "category": "encouragement",
+      "emoji": "⭐"
+    },
+    {
+      "id": 16,
+      "text": "Rest is productive. Rest is necessary.",
+      "category": "self-care",
+      "emoji": "🌙"
+    },
+    {
+      "id": 17,
+      "text": "Today is a new beginning.",
+      "category": "hope",
+      "emoji": "🌅"
+    },
+    {
+      "id": 18,
+      "text": "Choose joy in the little moments.",
+      "category": "happiness",
+      "emoji": "🌻"
+    },
+    {
+      "id": 19,
+      "text": "Your mental health is a priority.",
+      "category": "self-care",
+      "emoji": "💙"
+    },
+    {
+      "id": 20,
+      "text": "You are loved more than you know.",
+      "category": "love",
+      "emoji": "💖"
+    }
+  ]
+}

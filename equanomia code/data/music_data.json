@@ -1,0 +1,124 @@
+{
+  "tracks": [
+    {
+      "id": "rain_sounds",
+      "title": "Gentle Rain",
+      "artist": "Nature Sounds",
+      "category": "nature",
+      "icon": "🌧️",
+      "color": "#74B3CE",
+      "mood_tags": [
+        "calm",
+        "sleep",
+        "focus"
+      ],
+      "duration": "∞",
+      "description": "Soft rainfall to soothe your mind"
+    },
+    {
+      "id": "forest_ambience",
+      "title": "Forest Morning",
+      "artist": "Nature Sounds",
+      "category": "nature",
+      "icon": "🌲",
+      "color": "#6BCB77",
+      "mood_tags": [
+        "calm",
+        "happy",
+        "grounding"
+      ],
+      "duration": "∞",
+      "description": "Birds and rustling leaves in the forest"
+    },
+    {
+      "id": "ocean_waves",
+      "title": "Ocean Waves",
+      "artist": "Nature Sounds",
+      "category": "nature",
+      "icon": "🌊",
+      "color": "#4D96FF",
+      "mood_tags": [
+        "calm",
+        "relaxed",
+        "peace"
+      ],
+      "duration": "∞",
+      "description": "Gentle waves washing ashore"
+    },
+    {
+      "id": "white_noise",
+      "title": "White Noise",
+      "artist": "Focus Sounds",
+      "category": "focus",
+      "icon": "⚪",
+      "color": "#E0E0E0",
+      "mood_tags": [
+        "focus",
+        "sleep",
+        "anxiety"
+      ],
+      "duration": "∞",
+      "description": "Pure white noise for deep focus"
+    },
+    {
+      "id": "lofi_beats",
+      "title": "Lo-Fi Chill",
+      "artist": "Calm Vibes",
+      "category": "music",
+      "icon": "🎵",
+      "color": "#FFB3BA",
+      "mood_tags": [
+        "focus",
+        "happy",
+        "calm"
+      ],
+      "duration": "∞",
+      "description": "Soft lo-fi beats for studying and relaxing"
+    },
+    {
+      "id": "binaural_focus",
+      "title": "Focus Frequencies",
+      "artist": "Mind Tones",
+      "category": "focus",
+      "icon": "🧠",
+      "color": "#B8B8FF",
+      "mood_tags": [
+        "focus",
+        "motivated",
+        "clarity"
+      ],
+      "duration": "∞",
+      "description": "Binaural beats for enhanced concentration"
+    },
+    {
+      "id": "piano_calm",
+      "title": "Calm Piano",
+      "artist": "Serenity Keys",
+      "category": "music",
+      "icon": "🎹",
+      "color": "#FFD93D",
+      "mood_tags": [
+        "calm",
+        "sad",
+        "healing"
+      ],
+      "duration": "∞",
+      "description": "Soft piano melodies for emotional healing"
+    },
+    {
+      "id": "campfire",
+      "title": "Crackling Fire",
+      "artist": "Nature Sounds",
+      "category": "nature",
+      "icon": "🔥",
+      "color": "#FF8C42",
+      "mood_tags": [
+        "calm",
+        "cozy",
+        "grounding"
+      ],
+      "duration": "∞",
+      "description": "Warm campfire crackling sounds"
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wellness Questionnaire – Equanomia</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="quiz-page">
+ 
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+</div>
+ 
+<div class="quiz-container">
+  <!-- Header -->
+  <div class="quiz-header">
+    <a href="{{ url_for('index') }}" class="brand-link">
+      <span class="brand-icon">🌸</span>
+      <span class="brand-name">Equanomia</span>
+    </a>
+    <div class="quiz-progress-wrap">
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="quizProgressFill"></div>
+      </div>
+      <span class="quiz-progress-label" id="quizProgressLabel">1 of 8</span>
+    </div>
+  </div>
+ 
+  <!-- Quiz Content -->
+  <div class="quiz-content" id="quizContent">
+    <!-- Intro Screen -->
+    <div class="quiz-slide active" id="slide-intro">
+      <div class="quiz-intro">
+        <div class="quiz-intro-icon animate-float">🌸</div>
+        <h2>Let's understand you better</h2>
+        <p>This short questionnaire helps Equanomia create a personalized wellness plan just for you. There are no right or wrong answers — just honest ones.</p>
+        <div class="quiz-intro-features">
+          <div class="intro-feature"><span>⏱️</span> Takes only 2 minutes</div>
+          <div class="intro-feature"><span>🔒</span> 100% private & secure</div>
+          <div class="intro-feature"><span>🎯</span> Personalized results</div>
+        </div>
+        <button class="btn-primary-lg" onclick="startQuiz()">
+          <i class="fas fa-heart"></i> Begin My Wellness Journey
+        </button>
+      </div>
+    </div>
+ 
+    {% for q in questions %}
+    <div class="quiz-slide" id="slide-{{ loop.index }}" data-question="{{ q.id }}" data-index="{{ loop.index }}">
+      <div class="quiz-question-wrap">
+        <div class="q-number">Question {{ loop.index }} of {{ questions|length }}</div>
+        <h3 class="q-text">{{ q.question }}</h3>
+ 
+        {% if q.type == 'emoji_select' %}
+        <div class="emoji-options">
+          {% for opt in q.options %}
+          <button class="emoji-opt" data-value="{{ opt.value }}" onclick="selectEmoji(this, '{{ q.id }}')">
+            <span class="emoji-big">{{ opt.emoji }}</span>
+            <span class="emoji-label">{{ opt.label }}</span>
+          </button>
+          {% endfor %}
+        </div>
+ 
+        {% elif q.type == 'slider' %}
+        <div class="slider-wrap">
+          <div class="slider-labels">
+            <span>{{ q.labels[0] }}</span>
+            <span>{{ q.labels[1] }}</span>
+          </div>
+          <input type="range" class="wellness-slider" id="slider-{{ q.id }}"
+                 min="{{ q.min }}" max="{{ q.max }}" value="5"
+                 oninput="updateSlider(this, '{{ q.id }}')">
+          <div class="slider-value-display" id="val-{{ q.id }}">5</div>
+          <div class="slider-emoji-row" id="emoji-{{ q.id }}">😐</div>
+        </div>
+ 
+        {% elif q.type == 'single_choice' %}
+        <div class="choice-options">
+          {% for opt in q.options %}
+          <button class="choice-opt" data-value="{{ opt.value }}" onclick="selectChoice(this, '{{ q.id }}')">
+            <span class="choice-icon">{{ opt.icon }}</span>
+            <span class="choice-label">{{ opt.label }}</span>
+          </button>
+          {% endfor %}
+        </div>
+        {% endif %}
+ 
+        <div class="q-nav">
+          {% if loop.index > 1 %}
+          <button class="btn-ghost" onclick="prevSlide({{ loop.index }})">
+            <i class="fas fa-arrow-left"></i> Back
+          </button>
+          {% else %}
+          <button class="btn-ghost" onclick="goToSlide(0)">
+            <i class="fas fa-arrow-left"></i> Back
+          </button>
+          {% endif %}
+          <button class="btn-primary" id="nextBtn-{{ loop.index }}" onclick="nextSlide({{ loop.index }}, {{ questions|length }})">
+            {% if loop.last %}
+            <i class="fas fa-check"></i> Complete
+            {% else %}
+            Next <i class="fas fa-arrow-right"></i>
+            {% endif %}
+          </button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+ 
+    <!-- Result Screen -->
+    <div class="quiz-slide" id="slide-result">
+      <div class="quiz-result">
+        <div class="result-spinner" id="resultSpinner">
+          <div class="spinner-ring"></div>
+          <div class="spinner-text">Analyzing your responses...</div>
+        </div>
+        <div class="result-content" id="resultContent" style="display:none">
+          <div class="result-icon animate-bounce">✨</div>
+          <h2>Your Wellness Profile is Ready!</h2>
+          <div class="result-score-wrap">
+            <div class="result-score" id="resultScore">0</div>
+            <div class="result-score-label">Wellness Score</div>
+          </div>
+          <div class="result-insights" id="resultInsights"></div>
+          <div class="result-plan" id="resultPlan"></div>
+          <button class="btn-primary-lg" onclick="goToDashboard()">
+            <i class="fas fa-home"></i> View My Dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script>
+const totalQuestions = {{ questions|length }};
+let currentSlide = 0;
+let answers = {};
+ 
+const sliderEmojis = {
+  0: '😌', 1: '😊', 2: '🙂', 3: '😐', 4: '😔',
+  5: '😤', 6: '😰', 7: '😨', 8: '😱', 9: '😵', 10: '🤯'
+};
+ 
+function goToSlide(index) {
+  document.querySelectorAll('.quiz-slide').forEach(s => s.classList.remove('active'));
+  const slides = ['slide-intro', ...Array.from({length: totalQuestions}, (_, i) => `slide-${i+1}`), 'slide-result'];
+  const slideId = typeof index === 'number' ? slides[index] : index;
+  const el = document.getElementById(typeof index === 'number' ? slides[index] : index);
+  if (el) {
+    el.classList.add('active');
+    currentSlide = typeof index === 'number' ? index : slides.indexOf(index);
+  }
+  updateProgress();
+}
+ 
+function updateProgress() {
+  const fill = document.getElementById('quizProgressFill');
+  const label = document.getElementById('quizProgressLabel');
+  if (currentSlide === 0) {
+    fill.style.width = '0%';
+    label.textContent = 'Intro';
+  } else if (currentSlide > totalQuestions) {
+    fill.style.width = '100%';
+    label.textContent = 'Complete!';
+  } else {
+    const pct = (currentSlide / totalQuestions) * 100;
+    fill.style.width = pct + '%';
+    label.textContent = `${currentSlide} of ${totalQuestions}`;
+  }
+}
+ 
+function startQuiz() { goToSlide(1); }
+ 
+function selectEmoji(btn, qId) {
+  btn.closest('.emoji-options').querySelectorAll('.emoji-opt').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  answers[qId] = btn.dataset.value;
+}
+ 
+function updateSlider(input, qId) {
+  const val = parseInt(input.value);
+  document.getElementById('val-' + qId).textContent = val;
+  const emojiEl = document.getElementById('emoji-' + qId);
+  if (emojiEl) emojiEl.textContent = sliderEmojis[val] || '😐';
+  answers[qId] = val;
+}
+ 
+function selectChoice(btn, qId) {
+  btn.closest('.choice-options').querySelectorAll('.choice-opt').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  answers[qId] = btn.dataset.value;
+}
+ 
+function nextSlide(current, total) {
+  // Auto-save slider values if not yet set
+  const slide = document.getElementById('slide-' + current);
+  const qId = slide.dataset.question;
+  const slider = slide.querySelector('.wellness-slider');
+  if (slider && !answers[qId]) {
+    answers[qId] = parseInt(slider.value);
+  }
+  if (current >= total) {
+    submitQuiz();
+  } else {
+    goToSlide(current + 1);
+  }
+}
+ 
+function prevSlide(current) {
+  goToSlide(current - 1);
+}
+ 
+function submitQuiz() {
+  goToSlide(totalQuestions + 1);
+  // Show spinner
+  document.getElementById('resultSpinner').style.display = 'block';
+  document.getElementById('resultContent').style.display = 'none';
+ 
+  fetch('/questionnaire', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(answers)
+  })
+  .then(r => r.json())
+  .then(data => {
+    setTimeout(() => {
+      document.getElementById('resultSpinner').style.display = 'none';
+      document.getElementById('resultContent').style.display = 'block';
+      // Animate score
+      const scoreEl = document.getElementById('resultScore');
+      const targetScore = data.analysis.wellness_score || 7;
+      let current = 0;
+      const timer = setInterval(() => {
+        current += 0.2;
+        if (current >= targetScore) { current = targetScore; clearInterval(timer); }
+        scoreEl.textContent = current.toFixed(1);
+      }, 30);
+      // Show insights
+      const insights = data.analysis.insights || [];
+      document.getElementById('resultInsights').innerHTML = insights.map(i =>
+        `<div class="insight-item">💡 ${i}</div>`
+      ).join('');
+      const planNames = {
+        'stress_recovery': '🧘 7-Day Stress Recovery Plan',
+        'better_sleep': '🌙 Better Sleep Program',
+        'anxiety_relief': '💙 Anxiety Relief Routine',
+        'mood_boost': '☀️ Mood Boost Challenge'
+      };
+      const planName = planNames[data.analysis.recommended_plan] || '✨ Personalized Wellness Plan';
+      document.getElementById('resultPlan').innerHTML = `
+        <div class="recommended-plan">
+          <span class="plan-label">Recommended Plan:</span>
+          <strong>${planName}</strong>
+        </div>
+      `;
+      window._quizRedirect = data.redirect;
+    }, 2000);
+  })
+  .catch(() => {
+    window.location.href = '/daily_checkin';
+  });
+}
+ 
+function goToDashboard() {
+  window.location.href = window._quizRedirect || '/daily_checkin';
+}
+ 
+// Init slider defaults
+document.querySelectorAll('.wellness-slider').forEach(slider => {
+  const qId = slider.id.replace('slider-', '');
+  answers[qId] = parseInt(slider.value);
+  const emojiEl = document.getElementById('emoji-' + qId);
+  if (emojiEl) emojiEl.textContent = sliderEmojis[parseInt(slider.value)] || '😐';
+});
+</script>
+</body>
+</html>
+ 

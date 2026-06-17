@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wellness Plans – Equanomia</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="app-page">
+ 
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-brand"><span class="brand-icon">🌸</span><span class="brand-name">Equanomia</span></div>
+  <nav class="sidebar-nav">
+    <a href="{{ url_for('dashboard') }}" class="nav-item"><i class="fas fa-home"></i><span>Dashboard</span></a>
+    <a href="{{ url_for('mood_tracker') }}" class="nav-item"><i class="fas fa-smile"></i><span>Mood Tracker</span></a>
+    <a href="{{ url_for('daily_checkin') }}" class="nav-item"><i class="fas fa-check-circle"></i><span>Check-In</span></a>
+    <a href="{{ url_for('meditation') }}" class="nav-item"><i class="fas fa-spa"></i><span>Meditation</span></a>
+    <a href="{{ url_for('sleep_tracker') }}" class="nav-item"><i class="fas fa-moon"></i><span>Sleep</span></a>
+    <a href="{{ url_for('journal') }}" class="nav-item"><i class="fas fa-book-open"></i><span>Journal</span></a>
+    <a href="{{ url_for('chatbot') }}" class="nav-item"><i class="fas fa-robot"></i><span>AI Support</span></a>
+    <a href="{{ url_for('statistics') }}" class="nav-item"><i class="fas fa-chart-bar"></i><span>Statistics</span></a>
+    <a href="{{ url_for('wellness_analysis') }}" class="nav-item active"><i class="fas fa-heart"></i><span>Plans</span></a>
+    <a href="{{ url_for('emergency') }}" class="nav-item nav-emergency"><i class="fas fa-phone-alt"></i><span>Emergency</span></a>
+  </nav>
+  <div class="sidebar-footer"><a href="{{ url_for('logout') }}" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></div>
+</div>
+<button class="sidebar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+ 
+<main class="main-content" id="mainContent">
+  <div class="page-header">
+    <h1><i class="fas fa-heart"></i> Wellness Plans</h1>
+    <p>Personalized programs to support your emotional journey</p>
+  </div>
+ 
+  <!-- Wellness Score Banner -->
+  {% if analysis %}
+  <div class="wellness-score-banner glass-card animate-slide-up">
+    <div class="wsb-left">
+      <h3>Your Wellness Profile</h3>
+      <div class="wellness-insights">
+        {% for insight in analysis.insights %}
+        <div class="insight-chip">💡 {{ insight }}</div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="wsb-right">
+      <div class="wellness-score-circle">
+        <svg viewBox="0 0 120 120" class="score-svg">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(184,184,255,0.2)" stroke-width="10"/>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="url(#scoreGrad)" stroke-width="10"
+                  stroke-dasharray="{{ (analysis.wellness_score / 10) * 314 }} 314"
+                  stroke-dashoffset="78.5" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#B8B8FF"/>
+              <stop offset="100%" stop-color="#FF6B9D"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="score-center-text">
+          <span class="score-num">{{ analysis.wellness_score }}</span>
+          <span class="score-out">/10</span>
+        </div>
+      </div>
+      <span class="wellness-score-label">Wellness Score</span>
+    </div>
+  </div>
+  {% endif %}
+ 
+  <!-- Plans Grid -->
+  <div class="plans-grid animate-slide-up">
+    {% for plan in plans %}
+    <div class="plan-card glass-card {% if user.wellness_plan == plan.id %}active-plan{% endif %}"
+         style="--plan-color: {{ plan.color }}">
+      <div class="plan-card-header">
+        <span class="plan-big-icon">{{ plan.icon }}</span>
+        <div class="plan-header-info">
+          <h3>{{ plan.title }}</h3>
+          <p>{{ plan.description }}</p>
+        </div>
+        {% if user.wellness_plan == plan.id %}
+        <span class="active-badge">✅ Active</span>
+        {% endif %}
+      </div>
+ 
+      <!-- Day Timeline -->
+      <div class="plan-timeline">
+        {% for day in plan.days %}
+        <div class="timeline-day">
+          <div class="day-dot {{ 'active-day' if loop.index == 1 else '' }}">{{ loop.index }}</div>
+          <div class="day-content">
+            <span class="day-focus">Day {{ loop.index }}: {{ day.focus }}</span>
+            <div class="day-tasks">
+              {% for task in day.tasks %}
+              <span class="task-tag">{{ task }}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+ 
+      <div class="plan-card-actions">
+        {% if user.wellness_plan == plan.id %}
+        <button class="btn-ghost" onclick="selectPlan('{{ plan.id }}')">
+          <i class="fas fa-sync-alt"></i> Restart Plan
+        </button>
+        {% else %}
+        <button class="btn-primary" onclick="selectPlan('{{ plan.id }}')">
+          <i class="fas fa-play"></i> Start This Plan
+        </button>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+ 
+  <!-- Digital Detox Section -->
+  <div class="glass-card digital-detox-card animate-slide-up">
+    <div class="detox-header">
+      <h3><i class="fas fa-mobile-alt"></i> Digital Detox & Focus Mode</h3>
+      <p>Track your screen time and reclaim mental space</p>
+    </div>
+    <div class="detox-grid">
+      <div class="detox-timer-card">
+        <h4>🎯 Focus Timer</h4>
+        <div class="focus-timer-display" id="focusTimerDisplay">25:00</div>
+        <div class="focus-controls">
+          <button class="btn-primary" onclick="startFocusTimer()" id="focusBtn">
+            <i class="fas fa-play"></i> Start Focus Session
+          </button>
+          <select id="focusDuration" class="form-select-mini">
+            <option value="25">25 min (Pomodoro)</option>
+            <option value="15">15 min (Short)</option>
+            <option value="45">45 min (Deep)</option>
+            <option value="60">60 min (Extended)</option>
+          </select>
+        </div>
+      </div>
+      <div class="detox-tips-card">
+        <h4>💡 Healthy Digital Habits</h4>
+        <div class="detox-tip-list">
+          <div class="detox-tip">📵 Phone-free meals — be present</div>
+          <div class="detox-tip">🌅 No screens for first 30 min of your day</div>
+          <div class="detox-tip">🌙 Stop screens 1 hour before sleep</div>
+          <div class="detox-tip">⏰ Check social media at set times only</div>
+          <div class="detox-tip">🚶 Take a walk without your phone</div>
+          <div class="detox-tip">📚 Replace screen time with reading</div>
+        </div>
+      </div>
+      <div class="detox-challenge-card">
+        <h4>🏆 Weekly Detox Challenge</h4>
+        <div class="challenge-list" id="challengeList">
+          <div class="challenge-item" onclick="toggleChallenge(this)">
+            <span class="ch-check">☐</span>
+            <span>1 hour screen-free this morning</span>
+          </div>
+          <div class="challenge-item" onclick="toggleChallenge(this)">
+            <span class="ch-check">☐</span>
+            <span>No social media before 10am</span>
+          </div>
+          <div class="challenge-item" onclick="toggleChallenge(this)">
+            <span class="ch-check">☐</span>
+            <span>Phone-free dinner tonight</span>
+          </div>
+          <div class="challenge-item" onclick="toggleChallenge(this)">
+            <span class="ch-check">☐</span>
+            <span>30-min outdoor walk without phone</span>
+          </div>
+          <div class="challenge-item" onclick="toggleChallenge(this)">
+            <span class="ch-check">☐</span>
+            <span>Screen off by 10pm tonight</span>
+          </div>
+        </div>
+        <div class="challenge-score">Completed: <span id="challengeScore">0</span>/5</div>
+      </div>
+    </div>
+  </div>
+</main>
+ 
+<!-- Toast -->
+<div class="toast-notification" id="planToast">
+  <span class="toast-icon">🎯</span>
+  <div class="toast-content"><strong>Plan Activated!</strong><span>Your wellness journey begins now.</span></div>
+</div>
+ 
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script>
+function selectPlan(planId) {
+  fetch('/wellness_analysis/select_plan', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ plan_id: planId })
+  })
+  .then(r => r.json())
+  .then(() => {
+    const toast = document.getElementById('planToast');
+    toast.classList.add('visible');
+    setTimeout(() => { toast.classList.remove('visible'); location.reload(); }, 2000);
+  });
+}
+ 
+// Focus timer
+let focusInterval = null;
+let focusRunning = false;
+let focusRemaining = 25 * 60;
+ 
+function startFocusTimer() {
+  if (focusRunning) {
+    clearInterval(focusInterval);
+    focusRunning = false;
+    document.getElementById('focusBtn').innerHTML = '<i class="fas fa-play"></i> Start Focus Session';
+    return;
+  }
+  focusRemaining = parseInt(document.getElementById('focusDuration').value) * 60;
+  focusRunning = true;
+  document.getElementById('focusBtn').innerHTML = '<i class="fas fa-stop"></i> Stop Session';
+ 
+  focusInterval = setInterval(() => {
+    if (focusRemaining <= 0) {
+      clearInterval(focusInterval);
+      focusRunning = false;
+      document.getElementById('focusTimerDisplay').textContent = '✅ Done!';
+      document.getElementById('focusBtn').innerHTML = '<i class="fas fa-play"></i> Start New Session';
+      alert('🎉 Focus session complete! Well done!');
+      return;
+    }
+    focusRemaining--;
+    const m = Math.floor(focusRemaining / 60).toString().padStart(2,'0');
+    const s = (focusRemaining % 60).toString().padStart(2,'0');
+    document.getElementById('focusTimerDisplay').textContent = `${m}:${s}`;
+  }, 1000);
+}
+ 
+function toggleChallenge(item) {
+  item.classList.toggle('completed');
+  const check = item.querySelector('.ch-check');
+  check.textContent = item.classList.contains('completed') ? '✅' : '☐';
+  const count = document.querySelectorAll('.challenge-item.completed').length;
+  document.getElementById('challengeScore').textContent = count;
+}
+ 
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+</script>
+</body>
+</html>
+ 

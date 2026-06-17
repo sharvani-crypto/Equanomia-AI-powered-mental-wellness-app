@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Check-In – Equanomia</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="checkin-page">
+ 
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+</div>
+ 
+<div class="checkin-container">
+  <div class="checkin-header">
+    <a href="{{ url_for('index') }}" class="brand-link">
+      <span class="brand-icon">🌸</span>
+      <span class="brand-name">Equanomia</span>
+    </a>
+    <div class="checkin-date">
+      <i class="fas fa-calendar-heart"></i>
+      <span id="todayDate"></span>
+    </div>
+  </div>
+ 
+  <!-- Affirmation Banner -->
+  <div class="affirmation-banner animate-slide-down">
+    <span class="aff-emoji">{{ affirmation.emoji }}</span>
+    <span class="aff-text">"{{ affirmation.text }}"</span>
+  </div>
+ 
+  <div class="checkin-card glass-card animate-slide-up">
+    <div class="checkin-card-header">
+      <h2>Good {{ 'Morning' if True else 'Evening' }} 🌸</h2>
+      <p>How are you feeling today? Take a moment to check in with yourself.</p>
+    </div>
+ 
+    <form id="checkinForm">
+      <!-- Mood Selection -->
+      <div class="checkin-section">
+        <h4 class="section-label"><i class="fas fa-smile"></i> Today's Mood</h4>
+        <div class="mood-picker">
+          <button type="button" class="mood-btn" data-mood="happy" data-score="9" onclick="selectMood(this)">
+            <span class="mood-emoji">😄</span><span>Happy</span>
+          </button>
+          <button type="button" class="mood-btn" data-mood="calm" data-score="8" onclick="selectMood(this)">
+            <span class="mood-emoji">😌</span><span>Calm</span>
+          </button>
+          <button type="button" class="mood-btn" data-mood="motivated" data-score="8" onclick="selectMood(this)">
+            <span class="mood-emoji">💪</span><span>Motivated</span>
+          </button>
+          <button type="button" class="mood-btn" data-mood="neutral" data-score="5" onclick="selectMood(this)">
+            <span class="mood-emoji">😐</span><span>Neutral</span>
+          </button>
+          <button type="button" class="mood-btn" data-mood="tired" data-score="4" onclick="selectMood(this)">
+            <span class="mood-emoji">😴</span><span>Tired</span>
+          </button>
+          <button type="button" class="mood-btn" data-mood="anxious" data-score="3" onclick="selectMood(this)">
+            <span class="mood-emoji">😰</span><span>Anxious</span>
+          </button>
+          <button type="button" class="mood-btn" data-mood="stressed" data-score="3" onclick="selectMood(this)">
+            <span class="mood-emoji">😤</span><span>Stressed</span>
+          </button>
+          <button type="button" class="mood-btn" data-mood="sad" data-score="2" onclick="selectMood(this)">
+            <span class="mood-emoji">😢</span><span>Sad</span>
+          </button>
+        </div>
+      </div>
+ 
+      <!-- Emotional Sliders -->
+      <div class="checkin-section">
+        <h4 class="section-label"><i class="fas fa-sliders-h"></i> How do these feel today?</h4>
+        <div class="sliders-grid">
+          <div class="slider-item">
+            <div class="slider-info">
+              <span>Stress Level</span>
+              <span class="slider-val" id="stressVal">5</span>
+            </div>
+            <input type="range" id="stressSlider" min="0" max="10" value="5"
+                   oninput="document.getElementById('stressVal').textContent=this.value" class="wellness-slider stress-slider">
+            <div class="slider-ends"><span>Calm</span><span>Very Stressed</span></div>
+          </div>
+          <div class="slider-item">
+            <div class="slider-info">
+              <span>Anxiety Level</span>
+              <span class="slider-val" id="anxietyVal">5</span>
+            </div>
+            <input type="range" id="anxietySlider" min="0" max="10" value="5"
+                   oninput="document.getElementById('anxietyVal').textContent=this.value" class="wellness-slider anxiety-slider">
+            <div class="slider-ends"><span>None</span><span>Very Anxious</span></div>
+          </div>
+          <div class="slider-item">
+            <div class="slider-info">
+              <span>Energy Level</span>
+              <span class="slider-val" id="energyVal">5</span>
+            </div>
+            <input type="range" id="energySlider" min="0" max="10" value="5"
+                   oninput="document.getElementById('energyVal').textContent=this.value" class="wellness-slider energy-slider">
+            <div class="slider-ends"><span>Drained</span><span>Energized</span></div>
+          </div>
+          <div class="slider-item">
+            <div class="slider-info">
+              <span>Motivation</span>
+              <span class="slider-val" id="motivationVal">5</span>
+            </div>
+            <input type="range" id="motivationSlider" min="0" max="10" value="5"
+                   oninput="document.getElementById('motivationVal').textContent=this.value" class="wellness-slider motivation-slider">
+            <div class="slider-ends"><span>Low</span><span>Very Motivated</span></div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Sleep Section -->
+      <div class="checkin-section">
+        <h4 class="section-label"><i class="fas fa-moon"></i> Last Night's Sleep</h4>
+        <div class="sleep-grid">
+          <div class="slider-item">
+            <div class="slider-info">
+              <span>Sleep Quality</span>
+              <span class="slider-val" id="sleepQualVal">7</span>/10
+            </div>
+            <input type="range" id="sleepQualSlider" min="1" max="10" value="7"
+                   oninput="document.getElementById('sleepQualVal').textContent=this.value" class="wellness-slider sleep-slider">
+            <div class="slider-ends"><span>Poor</span><span>Excellent</span></div>
+          </div>
+          <div class="sleep-hours-picker">
+            <span class="sleep-label">Hours Slept</span>
+            <div class="hours-selector">
+              <button type="button" onclick="changeHours(-0.5)">−</button>
+              <span id="hoursDisplay">7.0</span>
+              <button type="button" onclick="changeHours(0.5)">+</button>
+            </div>
+            <span class="hours-unit">hours</span>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Gratitude & Reflection -->
+      <div class="checkin-section">
+        <h4 class="section-label"><i class="fas fa-feather-alt"></i> Quick Reflection</h4>
+        <div class="reflection-grid">
+          <div class="form-group">
+            <label class="form-label">Today I'm grateful for...</label>
+            <textarea id="gratitudeText" class="form-textarea" placeholder="Write one thing you're grateful for today..." rows="2"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">One thing on my mind...</label>
+            <textarea id="reflectionText" class="form-textarea" placeholder="What's on your mind right now?" rows="2"></textarea>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Weekly Insight -->
+      {% if week_stats %}
+      <div class="checkin-section">
+        <h4 class="section-label"><i class="fas fa-chart-line"></i> Your Week So Far</h4>
+        <div class="mini-stats-row">
+          {% set stress_vals = week_stats | selectattr('stress') | list %}
+          {% if stress_vals %}
+          <div class="mini-stat">
+            <span class="mini-stat-icon">😤</span>
+            <span class="mini-stat-label">Avg Stress</span>
+            <span class="mini-stat-val">{{ (stress_vals | map(attribute='stress') | list | sum / stress_vals|length) | round(1) }}</span>
+          </div>
+          {% endif %}
+          {% set sleep_vals = week_stats | selectattr('sleep') | list %}
+          {% if sleep_vals %}
+          <div class="mini-stat">
+            <span class="mini-stat-icon">🌙</span>
+            <span class="mini-stat-label">Avg Sleep</span>
+            <span class="mini-stat-val">{{ (sleep_vals | map(attribute='sleep') | list | sum / sleep_vals|length) | round(1) }}</span>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+ 
+      <button type="button" class="btn-primary-full" onclick="submitCheckin()" id="submitBtn">
+        <i class="fas fa-check-circle"></i> Complete Daily Check-In
+      </button>
+    </form>
+  </div>
+</div>
+ 
+<!-- Success Toast -->
+<div class="toast-notification" id="successToast">
+  <span class="toast-icon">🎉</span>
+  <div class="toast-content">
+    <strong>Check-in Complete!</strong>
+    <span>+15 coins & +30 XP earned</span>
+  </div>
+</div>
+ 
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script>
+let selectedMood = 'neutral';
+let sleepHours = 7.0;
+ 
+// Set today's date
+const now = new Date();
+document.getElementById('todayDate').textContent = now.toLocaleDateString('en-US', {
+  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+});
+ 
+function selectMood(btn) {
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedMood = btn.dataset.mood;
+}
+ 
+function changeHours(delta) {
+  sleepHours = Math.min(12, Math.max(0, sleepHours + delta));
+  document.getElementById('hoursDisplay').textContent = sleepHours.toFixed(1);
+}
+ 
+function submitCheckin() {
+  const data = {
+    mood: selectedMood,
+    stress: parseInt(document.getElementById('stressSlider').value),
+    anxiety: parseInt(document.getElementById('anxietySlider').value),
+    energy: parseInt(document.getElementById('energySlider').value),
+    motivation: parseInt(document.getElementById('motivationSlider').value),
+    sleep_quality: parseInt(document.getElementById('sleepQualSlider').value),
+    sleep_hours: sleepHours,
+    gratitude: document.getElementById('gratitudeText').value,
+    reflection: document.getElementById('reflectionText').value
+  };
+ 
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+ 
+  fetch('/daily_checkin', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  })
+  .then(r => r.json())
+  .then(resp => {
+    showToast();
+    setTimeout(() => { window.location.href = resp.redirect || '/dashboard'; }, 2000);
+  })
+  .catch(() => { window.location.href = '/dashboard'; });
+}
+ 
+function showToast() {
+  const toast = document.getElementById('successToast');
+  toast.classList.add('visible');
+  setTimeout(() => toast.classList.remove('visible'), 3000);
+}
+</script>
+</body>
+</html>
+ 

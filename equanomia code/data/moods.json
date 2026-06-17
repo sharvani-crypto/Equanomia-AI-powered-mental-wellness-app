@@ -1,0 +1,120 @@
+{
+  "mood_options": [
+    {
+      "id": "happy",
+      "label": "Happy",
+      "emoji": "😊",
+      "color": "#FFD93D",
+      "value": 9
+    },
+    {
+      "id": "calm",
+      "label": "Calm",
+      "emoji": "😌",
+      "color": "#6BCB77",
+      "value": 8
+    },
+    {
+      "id": "motivated",
+      "label": "Motivated",
+      "emoji": "💪",
+      "color": "#4D96FF",
+      "value": 8
+    },
+    {
+      "id": "content",
+      "label": "Content",
+      "emoji": "🙂",
+      "color": "#A8DADC",
+      "value": 7
+    },
+    {
+      "id": "neutral",
+      "label": "Neutral",
+      "emoji": "😐",
+      "color": "#B8B8FF",
+      "value": 5
+    },
+    {
+      "id": "tired",
+      "label": "Tired",
+      "emoji": "😴",
+      "color": "#C9B1BD",
+      "value": 4
+    },
+    {
+      "id": "anxious",
+      "label": "Anxious",
+      "emoji": "😰",
+      "color": "#FFB347",
+      "value": 3
+    },
+    {
+      "id": "stressed",
+      "label": "Stressed",
+      "emoji": "😤",
+      "color": "#FF6B6B",
+      "value": 3
+    },
+    {
+      "id": "sad",
+      "label": "Sad",
+      "emoji": "😢",
+      "color": "#74B3CE",
+      "value": 2
+    },
+    {
+      "id": "overwhelmed",
+      "label": "Overwhelmed",
+      "emoji": "😵",
+      "color": "#E07A5F",
+      "value": 1
+    }
+  ],
+  "mood_logs": {
+    "demo": [
+      {
+        "date": "2025-01-15",
+        "mood": "calm",
+        "note": "Had a peaceful morning.",
+        "score": 8
+      },
+      {
+        "date": "2025-01-14",
+        "mood": "happy",
+        "note": "Great day overall!",
+        "score": 9
+      },
+      {
+        "date": "2025-01-13",
+        "mood": "motivated",
+        "note": "Started new project.",
+        "score": 8
+      },
+      {
+        "date": "2025-01-12",
+        "mood": "neutral",
+        "note": "Just an average day.",
+        "score": 5
+      },
+      {
+        "date": "2025-01-11",
+        "mood": "tired",
+        "note": "Didn't sleep well.",
+        "score": 4
+      },
+      {
+        "date": "2025-01-10",
+        "mood": "anxious",
+        "note": "Work deadline stress.",
+        "score": 3
+      },
+      {
+        "date": "2025-01-09",
+        "mood": "calm",
+        "note": "Meditated in the morning.",
+        "score": 8
+      }
+    ]
+  }
+}

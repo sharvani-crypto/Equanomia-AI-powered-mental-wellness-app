@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "id": "usr_001",
+      "username": "demo",
+      "email": "demo@equanomia.com",
+      "password": "demo123",
+      "name": "Alex Morgan",
+      "joined": "2025-01-01",
+      "avatar": "🌸",
+      "coins": 470,
+      "xp": 1440,
+      "level": 5,
+      "streak": 1,
+      "badges": [
+        "first_login",
+        "week_streak",
+        "mood_master"
+      ],
+      "questionnaire_done": true,
+      "last_checkin": "2026-06-15",
+      "wellness_plan": "stress_recovery",
+      "pin": "1234"
+    },
+    {
+      "id": "usr_318",
+      "username": "sha",
+      "email": "sharvani@equinomia.com",
+      "password": "sharvani123",
+      "name": "sharvani",
+      "joined": "2026-05-31",
+      "avatar": "🌻",
+      "coins": 50,
+      "xp": 0,
+      "level": 1,
+      "streak": 0,
+      "badges": [
+        "new_member"
+      ],
+      "questionnaire_done": false,
+      "last_checkin": null,
+      "wellness_plan": null,
+      "pin": null
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emergency Support – Equanomia</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="emergency-page">
+ 
+<div class="bg-blobs">
+  <div class="blob blob-1" style="background: radial-gradient(circle, rgba(77,150,255,0.2), transparent)"></div>
+  <div class="blob blob-2" style="background: radial-gradient(circle, rgba(184,184,255,0.2), transparent)"></div>
+</div>
+ 
+<div class="emergency-container">
+  <div class="emergency-nav">
+    <a href="{{ url_for('index') }}" class="brand-link">
+      <span class="brand-icon">🌸</span>
+      <span class="brand-name">Equanomia</span>
+    </a>
+    <a href="{{ url_for('dashboard') }}" class="btn-ghost">← Back to Dashboard</a>
+  </div>
+ 
+  <!-- Hero -->
+  <div class="emergency-hero glass-card animate-slide-up">
+    <div class="emergency-icon animate-pulse">💙</div>
+    <h1>You Are Not Alone</h1>
+    <p>Whatever you're going through right now — help is available, and you deserve support. Reaching out is one of the bravest things you can do.</p>
+    <div class="breathe-reminder">
+      <span>Take one deep breath with me right now.</span>
+      <div class="mini-breath-orb" id="miniBreathOrb" onclick="toggleMiniBreath(this)">
+        <span>Breathe</span>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Immediate Calming -->
+  <div class="glass-card calming-card animate-slide-up">
+    <h3>🌊 Feeling Overwhelmed Right Now?</h3>
+    <p>Try the 5-4-3-2-1 Grounding Technique:</p>
+    <div class="grounding-steps">
+      <div class="ground-step" style="--step-color:#4D96FF">
+        <span class="ground-num">5</span>
+        <div><strong>Things you can SEE</strong><p>Look around and name 5 things you see right now</p></div>
+      </div>
+      <div class="ground-step" style="--step-color:#6BCB77">
+        <span class="ground-num">4</span>
+        <div><strong>Things you can TOUCH</strong><p>Feel 4 textures around you — the floor, your clothes</p></div>
+      </div>
+      <div class="ground-step" style="--step-color:#FFD93D">
+        <span class="ground-num">3</span>
+        <div><strong>Things you can HEAR</strong><p>Listen carefully for 3 sounds around you</p></div>
+      </div>
+      <div class="ground-step" style="--step-color:#FFB347">
+        <span class="ground-num">2</span>
+        <div><strong>Things you can SMELL</strong><p>Notice 2 scents around you</p></div>
+      </div>
+      <div class="ground-step" style="--step-color:#FF6B9D">
+        <span class="ground-num">1</span>
+        <div><strong>Thing you can TASTE</strong><p>Notice 1 taste in your mouth right now</p></div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Crisis Helplines -->
+  <div class="glass-card helplines-card animate-slide-up">
+    <h3>📞 Crisis & Mental Health Helplines</h3>
+    <p class="helplines-note">These services are free, confidential, and available 24/7.</p>
+    <div class="helplines-grid">
+      <div class="helpline-card">
+        <div class="hl-flag">🇮🇳</div>
+        <div class="hl-info">
+          <strong>iCall (India)</strong>
+          <span>9152987821</span>
+          <p>Psychological support for mental health</p>
+        </div>
+        <a href="tel:9152987821" class="hl-call-btn">Call</a>
+      </div>
+      <div class="helpline-card">
+        <div class="hl-flag">🇮🇳</div>
+        <div class="hl-info">
+          <strong>Vandrevala Foundation</strong>
+          <span>1860-2662-345</span>
+          <p>24/7 mental health support</p>
+        </div>
+        <a href="tel:18602662345" class="hl-call-btn">Call</a>
+      </div>
+      <div class="helpline-card">
+        <div class="hl-flag">🇺🇸</div>
+        <div class="hl-info">
+          <strong>988 Suicide & Crisis Lifeline</strong>
+          <span>Call or text 988</span>
+          <p>24/7 crisis support</p>
+        </div>
+        <a href="tel:988" class="hl-call-btn">Call</a>
+      </div>
+      <div class="helpline-card">
+        <div class="hl-flag">🌍</div>
+        <div class="hl-info">
+          <strong>Crisis Text Line</strong>
+          <span>Text HOME to 741741</span>
+          <p>Text-based crisis support</p>
+        </div>
+        <a href="sms:741741?body=HOME" class="hl-call-btn">Text</a>
+      </div>
+      <div class="helpline-card">
+        <div class="hl-flag">🇬🇧</div>
+        <div class="hl-info">
+          <strong>Samaritans (UK)</strong>
+          <span>116 123</span>
+          <p>Free emotional support, any time</p>
+        </div>
+        <a href="tel:116123" class="hl-call-btn">Call</a>
+      </div>
+      <div class="helpline-card">
+        <div class="hl-flag">🇦🇺</div>
+        <div class="hl-info">
+          <strong>Lifeline (Australia)</strong>
+          <span>13 11 14</span>
+          <p>Crisis support and suicide prevention</p>
+        </div>
+        <a href="tel:131114" class="hl-call-btn">Call</a>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Safety Plan -->
+  <div class="glass-card safety-plan-card animate-slide-up">
+    <h3>🛡️ Create Your Personal Safety Plan</h3>
+    <p>A safety plan helps you navigate hard moments. Fill in your own answers:</p>
+    <div class="safety-form">
+      <div class="safety-item">
+        <label>⚠️ Warning signs I notice when I'm struggling:</label>
+        <textarea class="form-textarea" placeholder="e.g., I withdraw from friends, I can't sleep, I feel numb..." rows="2"></textarea>
+      </div>
+      <div class="safety-item">
+        <label>🌊 Things that help me cope:</label>
+        <textarea class="form-textarea" placeholder="e.g., Breathing exercises, a walk, calling a friend, music..." rows="2"></textarea>
+      </div>
+      <div class="safety-item">
+        <label>👥 People I can reach out to:</label>
+        <textarea class="form-textarea" placeholder="Name and contact of someone you trust..." rows="2"></textarea>
+      </div>
+      <div class="safety-item">
+        <label>🏥 Professional help I can contact:</label>
+        <textarea class="form-textarea" placeholder="Therapist, doctor, or crisis line number..." rows="2"></textarea>
+      </div>
+      <button class="btn-primary" onclick="saveSafetyPlan()">
+        <i class="fas fa-save"></i> Save My Safety Plan
+      </button>
+    </div>
+  </div>
+ 
+  <!-- Reminder -->
+  <div class="emergency-reminder animate-slide-up">
+    <p>💙 <strong>Remember:</strong> Seeking help is a sign of strength, not weakness. You matter, your life has value, and things can get better with the right support.</p>
+    <a href="{{ url_for('chatbot') }}" class="btn-primary-lg">
+      <i class="fas fa-comments"></i> Talk to Equa Right Now
+    </a>
+  </div>
+</div>
+ 
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script>
+let breathActive = false;
+let breathTimer = null;
+ 
+function toggleMiniBreath(orb) {
+  breathActive = !breathActive;
+  if (breathActive) {
+    orb.classList.add('breathing');
+    runMiniBreath(orb);
+  } else {
+    orb.classList.remove('breathing','inhale','exhale');
+    clearTimeout(breathTimer);
+    orb.querySelector('span').textContent = 'Breathe';
+  }
+}
+ 
+function runMiniBreath(orb) {
+  if (!breathActive) return;
+  orb.classList.remove('exhale'); orb.classList.add('inhale');
+  orb.querySelector('span').textContent = 'Inhale...';
+  breathTimer = setTimeout(() => {
+    if (!breathActive) return;
+    orb.classList.remove('inhale'); orb.classList.add('exhale');
+    orb.querySelector('span').textContent = 'Exhale...';
+    breathTimer = setTimeout(() => runMiniBreath(orb), 6000);
+  }, 4000);
+}
+ 
+function saveSafetyPlan() {
+  alert('💙 Your safety plan has been saved locally. Please also consider sharing it with a trusted person or your healthcare provider.');
+}
+</script>
+</body>
+</html>

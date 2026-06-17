@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login – Equanomia</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-page">
+ 
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+ 
+<div class="auth-container">
+  <div class="auth-left">
+    <div class="auth-brand">
+      <a href="{{ url_for('index') }}" class="brand-link">
+        <span class="brand-icon">🌸</span>
+        <span class="brand-name">Equanomia</span>
+      </a>
+    </div>
+    <div class="auth-illustration">
+      <div class="wellness-orb orb-small">
+        <div class="orb-ring ring-1"></div>
+        <div class="orb-ring ring-2"></div>
+        <div class="orb-center"><span class="orb-emoji">🧘</span></div>
+      </div>
+    </div>
+    <div class="auth-quote">
+      <p>"You don't have to be perfect to begin. Just begin."</p>
+      <span>— Your daily affirmation</span>
+    </div>
+    <div class="auth-features-mini">
+      <div class="mini-feature"><span>😊</span> Mood Tracking</div>
+      <div class="mini-feature"><span>🧘</span> Meditation</div>
+      <div class="mini-feature"><span>🤖</span> AI Support</div>
+      <div class="mini-feature"><span>📓</span> Journal</div>
+    </div>
+  </div>
+ 
+  <div class="auth-right">
+    <div class="auth-card glass-card animate-slide-up">
+      <div class="auth-card-header">
+        <h2>Welcome Back 🌸</h2>
+        <p>Continue your wellness journey</p>
+      </div>
+ 
+      {% if error %}
+      <div class="auth-error">
+        <i class="fas fa-exclamation-circle"></i> {{ error }}
+      </div>
+      {% endif %}
+ 
+      <form method="POST" action="{{ url_for('login') }}" class="auth-form" id="loginForm">
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-user"></i> Username
+          </label>
+          <input type="text" name="username" class="form-input" placeholder="Enter your username" required autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-lock"></i> Password
+          </label>
+          <div class="input-with-toggle">
+            <input type="password" name="password" class="form-input" id="passwordInput" placeholder="Enter your password" required autocomplete="current-password">
+            <button type="button" class="password-toggle" onclick="togglePassword('passwordInput', this)">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary-full" id="loginBtn">
+          <span class="btn-text"><i class="fas fa-sign-in-alt"></i> Sign In</span>
+          <span class="btn-loading" style="display:none"><i class="fas fa-spinner fa-spin"></i> Signing in...</span>
+        </button>
+      </form>
+ 
+      <div class="auth-divider"><span>or</span></div>
+      <div class="demo-login">
+        <p>Try with demo account</p>
+        <button class="btn-demo" onclick="fillDemo()">
+          <i class="fas fa-play"></i> Use Demo Account (username: demo, pass: demo123)
+        </button>
+      </div>
+ 
+      <div class="auth-footer-link">
+        Don't have an account? <a href="{{ url_for('signup') }}">Sign Up Free</a>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script>
+function fillDemo() {
+  document.querySelector('[name="username"]').value = 'demo';
+  document.querySelector('[name="password"]').value = 'demo123';
+}
+function togglePassword(id, btn) {
+  const inp = document.getElementById(id);
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    btn.innerHTML = '<i class="fas fa-eye-slash"></i>';
+  } else {
+    inp.type = 'password';
+    btn.innerHTML = '<i class="fas fa-eye"></i>';
+  }
+}
+document.getElementById('loginForm').addEventListener('submit', function() {
+  document.querySelector('.btn-text').style.display = 'none';
+  document.querySelector('.btn-loading').style.display = 'inline';
+});
+</script>
+</body>
+</html>
+ 

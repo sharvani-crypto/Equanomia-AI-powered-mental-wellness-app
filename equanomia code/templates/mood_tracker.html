@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mood Tracker – Equanomia</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="app-page">
+ 
+{% include 'partials/_sidebar.html' ignore missing %}
+ 
+<!-- Fallback sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <span class="brand-icon">🌸</span><span class="brand-name">Equanomia</span>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="{{ url_for('dashboard') }}" class="nav-item"><i class="fas fa-home"></i> <span>Dashboard</span></a>
+    <a href="{{ url_for('mood_tracker') }}" class="nav-item active"><i class="fas fa-smile"></i> <span>Mood Tracker</span></a>
+    <a href="{{ url_for('daily_checkin') }}" class="nav-item"><i class="fas fa-check-circle"></i> <span>Check-In</span></a>
+    <a href="{{ url_for('meditation') }}" class="nav-item"><i class="fas fa-spa"></i> <span>Meditation</span></a>
+    <a href="{{ url_for('sleep_tracker') }}" class="nav-item"><i class="fas fa-moon"></i> <span>Sleep</span></a>
+    <a href="{{ url_for('journal') }}" class="nav-item"><i class="fas fa-book-open"></i> <span>Journal</span></a>
+    <a href="{{ url_for('chatbot') }}" class="nav-item"><i class="fas fa-robot"></i> <span>AI Support</span></a>
+    <a href="{{ url_for('statistics') }}" class="nav-item"><i class="fas fa-chart-bar"></i> <span>Statistics</span></a>
+    <a href="{{ url_for('wellness_analysis') }}" class="nav-item"><i class="fas fa-heart"></i> <span>Plans</span></a>
+    <a href="{{ url_for('emergency') }}" class="nav-item nav-emergency"><i class="fas fa-phone-alt"></i> <span>Emergency</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="{{ url_for('logout') }}" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+</div>
+ 
+<button class="sidebar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+ 
+<main class="main-content" id="mainContent">
+  <div class="page-header">
+    <h1><i class="fas fa-smile"></i> Mood Tracker</h1>
+    <p>Log how you feel and discover emotional patterns over time</p>
+  </div>
+ 
+  <div class="mood-track-grid">
+    <!-- Log Mood Card -->
+    <div class="glass-card mood-log-card animate-slide-up">
+      <h3>Log Today's Mood</h3>
+      <div class="mood-selector-big">
+        {% for opt in mood_options %}
+        <button class="mood-big-btn" data-mood="{{ opt.id }}" data-score="{{ opt.value }}"
+                style="--mood-color: {{ opt.color }}" onclick="selectBigMood(this)">
+          <span class="mood-emoji-big">{{ opt.emoji }}</span>
+          <span class="mood-label-big">{{ opt.label }}</span>
+        </button>
+        {% endfor %}
+      </div>
+      <div class="mood-note-section">
+        <label class="form-label">Add a note (optional)</label>
+        <textarea id="moodNote" class="form-textarea" placeholder="What's contributing to this mood?..." rows="3"></textarea>
+      </div>
+      <button class="btn-primary-full" onclick="logMood()">
+        <i class="fas fa-plus-circle"></i> Log Mood
+      </button>
+    </div>
+ 
+    <!-- Mood History Chart -->
+    <div class="glass-card animate-slide-up">
+      <h3>Mood Trend (Last 14 Days)</h3>
+      <canvas id="moodHistoryChart" height="200"></canvas>
+    </div>
+  </div>
+ 
+  <!-- Mood History List -->
+  <div class="glass-card mood-history-card animate-slide-up">
+    <h3><i class="fas fa-history"></i> Mood History</h3>
+    <div class="mood-history-list">
+      {% if mood_logs %}
+        {% for log in mood_logs | reverse %}
+        <div class="mood-history-item">
+          <div class="mh-date">{{ log.date }}</div>
+          <div class="mh-emoji">
+            {% set emoji_map = {'happy':'😄','calm':'😌','motivated':'💪','content':'🙂','neutral':'😐','tired':'😴','anxious':'😰','stressed':'😤','sad':'😢','overwhelmed':'😵'} %}
+            {{ emoji_map.get(log.mood, '😐') }}
+          </div>
+          <div class="mh-mood">{{ log.mood | title }}</div>
+          <div class="mh-score">
+            <div class="score-dots">
+              {% for i in range(10) %}
+              <span class="score-dot {{ 'active' if i < log.score else '' }}"></span>
+              {% endfor %}
+            </div>
+            {{ log.score }}/10
+          </div>
+          <div class="mh-note">{{ log.note or '—' }}</div>
+        </div>
+        {% endfor %}
+      {% else %}
+      <div class="empty-state">
+        <span>😊</span>
+        <p>No mood logs yet. Log your first mood above!</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</main>
+ 
+<!-- Toast -->
+<div class="toast-notification" id="moodToast">
+  <span class="toast-icon">😊</span>
+  <div class="toast-content">
+    <strong>Mood Logged!</strong>
+    <span>+10 coins & +20 XP earned</span>
+  </div>
+</div>
+ 
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script>
+let selectedMood = null;
+let selectedScore = 5;
+ 
+function selectBigMood(btn) {
+  document.querySelectorAll('.mood-big-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedMood = btn.dataset.mood;
+  selectedScore = parseInt(btn.dataset.score);
+}
+ 
+function logMood() {
+  if (!selectedMood) {
+    alert('Please select a mood first!');
+    return;
+  }
+  fetch('/mood_tracker', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ mood: selectedMood, score: selectedScore, note: document.getElementById('moodNote').value })
+  })
+  .then(r => r.json())
+  .then(() => {
+    const toast = document.getElementById('moodToast');
+    toast.classList.add('visible');
+    setTimeout(() => { toast.classList.remove('visible'); location.reload(); }, 2000);
+  });
+}
+ 
+// Mood history chart
+const moodLogs = {{ mood_logs | tojson }};
+const moodScoreMap = { happy:9, calm:8, motivated:8, content:7, neutral:5, tired:4, anxious:3, stressed:3, sad:2, overwhelmed:1 };
+const labels = moodLogs.map(l => l.date.slice(5));
+const scores = moodLogs.map(l => l.score || moodScoreMap[l.mood] || 5);
+const colors = moodLogs.map(l => {
+  const c = { happy:'#FFD93D', calm:'#6BCB77', motivated:'#4D96FF', neutral:'#B8B8FF', tired:'#C9B1BD', anxious:'#FFB347', stressed:'#FF6B6B', sad:'#74B3CE', overwhelmed:'#E07A5F' };
+  return c[l.mood] || '#B8B8FF';
+});
+ 
+const ctx = document.getElementById('moodHistoryChart').getContext('2d');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels,
+    datasets: [{
+      label: 'Mood Score',
+      data: scores,
+      backgroundColor: colors,
+      borderRadius: 8,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { min: 0, max: 10, ticks: { color: '#888' }, grid: { color: 'rgba(0,0,0,0.05)' } },
+      x: { ticks: { color: '#888' }, grid: { display: false } }
+    }
+  }
+});
+ 
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+</script>
+</body>
+</html>
+ 

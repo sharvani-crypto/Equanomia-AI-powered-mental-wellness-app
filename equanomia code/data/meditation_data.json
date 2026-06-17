@@ -1,0 +1,144 @@
+{
+  "sessions": [
+    {
+      "id": "breathing_basics",
+      "title": "Breathing Basics",
+      "duration": 5,
+      "category": "breathing",
+      "icon": "🌬️",
+      "color": "#A8DADC",
+      "description": "Simple breathing exercise to calm your nervous system.",
+      "steps": [
+        {
+          "phase": "Inhale",
+          "seconds": 4,
+          "instruction": "Breathe in slowly through your nose"
+        },
+        {
+          "phase": "Hold",
+          "seconds": 4,
+          "instruction": "Hold gently, stay relaxed"
+        },
+        {
+          "phase": "Exhale",
+          "seconds": 6,
+          "instruction": "Release slowly through your mouth"
+        },
+        {
+          "phase": "Rest",
+          "seconds": 2,
+          "instruction": "Rest before the next breath"
+        }
+      ],
+      "xp_reward": 10
+    },
+    {
+      "id": "body_scan",
+      "title": "Body Scan Meditation",
+      "duration": 10,
+      "category": "mindfulness",
+      "icon": "🧘",
+      "color": "#6BCB77",
+      "description": "A gentle scan from head to toe to release tension.",
+      "guidance": [
+        "Find a comfortable position and close your eyes.",
+        "Start by noticing your breath — no need to change it.",
+        "Bring attention to the top of your head. Soften any tension.",
+        "Move down to your face — relax your jaw, forehead, eyes.",
+        "Continue to your shoulders — let them drop down.",
+        "Feel your chest rise and fall with each breath.",
+        "Move to your stomach — let it soften on each exhale.",
+        "Notice your hips, legs, and feet — release any tension.",
+        "Take a full breath in and let it all go.",
+        "When ready, gently open your eyes."
+      ],
+      "xp_reward": 25
+    },
+    {
+      "id": "loving_kindness",
+      "title": "Loving Kindness",
+      "duration": 7,
+      "category": "compassion",
+      "icon": "💗",
+      "color": "#FFB3BA",
+      "description": "Cultivate love and compassion for yourself and others.",
+      "guidance": [
+        "Sit comfortably and take a few deep breaths.",
+        "Bring to mind yourself. Say silently: May I be happy.",
+        "May I be healthy. May I be at peace.",
+        "Now think of someone you love. Send them the same wishes.",
+        "Expand to people you feel neutral about.",
+        "Even extend these wishes to those who are difficult.",
+        "Finally, extend to all beings everywhere.",
+        "May all beings be happy. May all beings be at peace."
+      ],
+      "xp_reward": 20
+    },
+    {
+      "id": "478_breathing",
+      "title": "4-7-8 Relaxation Breath",
+      "duration": 5,
+      "category": "breathing",
+      "icon": "🌊",
+      "color": "#4D96FF",
+      "description": "The 4-7-8 technique activates your relaxation response.",
+      "steps": [
+        {
+          "phase": "Inhale",
+          "seconds": 4,
+          "instruction": "Breathe in quietly through your nose"
+        },
+        {
+          "phase": "Hold",
+          "seconds": 7,
+          "instruction": "Hold your breath completely"
+        },
+        {
+          "phase": "Exhale",
+          "seconds": 8,
+          "instruction": "Exhale completely through your mouth"
+        }
+      ],
+      "xp_reward": 15
+    },
+    {
+      "id": "morning_mindfulness",
+      "title": "Morning Mindfulness",
+      "duration": 8,
+      "category": "mindfulness",
+      "icon": "🌅",
+      "color": "#FFD93D",
+      "description": "Start your day with intention and calm awareness.",
+      "guidance": [
+        "Begin your morning by sitting quietly for a moment.",
+        "Feel the weight of your body. Notice the stillness.",
+        "Take three deep, nourishing breaths.",
+        "Set an intention for today — one word or feeling.",
+        "What are you grateful for this morning?",
+        "Visualize your day unfolding with ease and grace.",
+        "You are ready. You are capable. Today is a gift."
+      ],
+      "xp_reward": 20
+    },
+    {
+      "id": "sleep_meditation",
+      "title": "Sleep Wind-Down",
+      "duration": 12,
+      "category": "sleep",
+      "icon": "🌙",
+      "color": "#B8B8FF",
+      "description": "Relax your mind and body for a restful night's sleep.",
+      "guidance": [
+        "Lie down comfortably. Let your body sink into the bed.",
+        "Close your eyes. Let go of the day.",
+        "Starting from your toes — relax each part of your body.",
+        "Feel a wave of calm washing over you.",
+        "Your breathing slows. Your heart rate calms.",
+        "You are safe. You are loved. You are at rest.",
+        "Drift into peaceful, healing sleep."
+      ],
+      "xp_reward": 25
+    }
+  ],
+  "user_history": {}
+}

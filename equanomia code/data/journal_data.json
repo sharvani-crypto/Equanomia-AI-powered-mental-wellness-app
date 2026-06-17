@@ -1,0 +1,58 @@
+{
+  "journals": {
+    "demo": [
+      {
+        "id": "j001",
+        "date": "2025-01-15",
+        "title": "A peaceful Tuesday",
+        "content": "Today felt different. I woke up earlier than usual and the morning was so quiet. I sat with my coffee by the window and just breathed. No phone, no rush. It reminded me how important these small moments are for my peace of mind. Meditation really helped today.",
+        "mood": "calm",
+        "tags": [
+          "peace",
+          "morning",
+          "gratitude"
+        ],
+        "type": "journal"
+      },
+      {
+        "id": "j002",
+        "date": "2025-01-14",
+        "title": "Gratitude entry",
+        "content": "I am grateful for: 1) The warm sunshine today. 2) My friend who checked in on me. 3) The fact that I completed my wellness streak. 4) My health. 5) The ability to rest when needed.",
+        "mood": "happy",
+        "tags": [
+          "gratitude",
+          "friends",
+          "health"
+        ],
+        "type": "gratitude"
+      },
+      {
+        "id": "j003",
+        "date": "2025-01-13",
+        "title": "Processing anxiety",
+        "content": "Work has been stressful. I noticed I was catastrophizing — assuming the worst would happen. After the CBT exercise, I challenged those thoughts. The deadline is tight but I can break it into small steps. I can handle this.",
+        "mood": "anxious",
+        "tags": [
+          "anxiety",
+          "work",
+          "cbt",
+          "progress"
+        ],
+        "type": "reflection"
+      }
+    ]
+  },
+  "prompts": [
+    "What made you smile today?",
+    "Describe a challenge you faced and how you handled it.",
+    "What are you most grateful for right now?",
+    "What is one thing you'd like to let go of?",
+    "Write about a moment that brought you peace this week.",
+    "What does your ideal calm day look like?",
+    "What are three things you love about yourself?",
+    "Describe your feelings without judgment.",
+    "What would you tell your younger self today?",
+    "What are you looking forward to?"
+  ]
+}

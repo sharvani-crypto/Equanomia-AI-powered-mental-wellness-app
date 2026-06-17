@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep Tracker – Equanomia</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="app-page">
+ 
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-brand"><span class="brand-icon">🌸</span><span class="brand-name">Equanomia</span></div>
+  <nav class="sidebar-nav">
+    <a href="{{ url_for('dashboard') }}" class="nav-item"><i class="fas fa-home"></i><span>Dashboard</span></a>
+    <a href="{{ url_for('mood_tracker') }}" class="nav-item"><i class="fas fa-smile"></i><span>Mood Tracker</span></a>
+    <a href="{{ url_for('daily_checkin') }}" class="nav-item"><i class="fas fa-check-circle"></i><span>Check-In</span></a>
+    <a href="{{ url_for('meditation') }}" class="nav-item"><i class="fas fa-spa"></i><span>Meditation</span></a>
+    <a href="{{ url_for('sleep_tracker') }}" class="nav-item active"><i class="fas fa-moon"></i><span>Sleep</span></a>
+    <a href="{{ url_for('journal') }}" class="nav-item"><i class="fas fa-book-open"></i><span>Journal</span></a>
+    <a href="{{ url_for('chatbot') }}" class="nav-item"><i class="fas fa-robot"></i><span>AI Support</span></a>
+    <a href="{{ url_for('statistics') }}" class="nav-item"><i class="fas fa-chart-bar"></i><span>Statistics</span></a>
+    <a href="{{ url_for('wellness_analysis') }}" class="nav-item"><i class="fas fa-heart"></i><span>Plans</span></a>
+    <a href="{{ url_for('emergency') }}" class="nav-item nav-emergency"><i class="fas fa-phone-alt"></i><span>Emergency</span></a>
+  </nav>
+  <div class="sidebar-footer"><a href="{{ url_for('logout') }}" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></div>
+</div>
+<button class="sidebar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+ 
+<main class="main-content" id="mainContent">
+  <div class="page-header">
+    <h1><i class="fas fa-moon"></i> Sleep Tracker</h1>
+    <p>Monitor your sleep quality and build healthy bedtime habits</p>
+  </div>
+ 
+  <div class="sleep-main-grid">
+ 
+    <!-- Log Sleep -->
+    <div class="glass-card sleep-log-card animate-slide-up">
+      <h3>🌙 Log Tonight's Sleep</h3>
+      <div class="sleep-moon-visual">
+        <div class="moon-circle" id="moonCircle">
+          <span id="sleepHoursDisplay">7.0</span>
+          <span class="moon-unit">hours</span>
+        </div>
+      </div>
+      <div class="sleep-controls">
+        <div class="sleep-hours-control">
+          <label class="form-label">Hours Slept</label>
+          <div class="hours-stepper">
+            <button type="button" onclick="adjustHours(-0.5)" class="stepper-btn">−</button>
+            <span id="hoursVal">7.0</span>
+            <button type="button" onclick="adjustHours(0.5)" class="stepper-btn">+</button>
+          </div>
+        </div>
+        <div class="slider-item" style="margin-top:16px">
+          <div class="slider-info">
+            <span>Sleep Quality</span>
+            <span class="slider-val" id="sqVal">7</span>/10
+          </div>
+          <input type="range" id="sleepQualInput" min="1" max="10" value="7"
+                 oninput="updateSleepQuality(this.value)" class="wellness-slider sleep-slider">
+          <div class="slider-ends"><span>😴 Poor</span><span>😊 Excellent</span></div>
+        </div>
+        <div class="sleep-quality-label" id="sleepQualityLabel">Good Sleep</div>
+ 
+        <!-- Bedtime / Wake time -->
+        <div class="sleep-time-row">
+          <div class="form-group">
+            <label class="form-label">🌙 Bedtime</label>
+            <input type="time" id="bedtimeInput" class="form-input" value="22:30">
+          </div>
+          <div class="form-group">
+            <label class="form-label">☀️ Wake Time</label>
+            <input type="time" id="wakeInput" class="form-input" value="06:30">
+          </div>
+        </div>
+ 
+        <button class="btn-primary-full" onclick="logSleep()">
+          <i class="fas fa-moon"></i> Save Sleep Log
+        </button>
+      </div>
+    </div>
+ 
+    <!-- Sleep Stats -->
+    <div class="glass-card sleep-stats-card animate-slide-up">
+      <h3>📊 Sleep Analytics</h3>
+      {% if sleep_history %}
+        {% set avg_hours = (sleep_history | map(attribute='hours') | list | sum / sleep_history|length) | round(1) %}
+        {% set avg_quality = (sleep_history | map(attribute='quality') | list | sum / sleep_history|length) | round(1) %}
+        <div class="sleep-avg-row">
+          <div class="sleep-avg-card">
+            <span class="avg-icon">⏰</span>
+            <span class="avg-val">{{ avg_hours }}h</span>
+            <span class="avg-label">Avg Hours</span>
+          </div>
+          <div class="sleep-avg-card">
+            <span class="avg-icon">⭐</span>
+            <span class="avg-val">{{ avg_quality }}/10</span>
+            <span class="avg-label">Avg Quality</span>
+          </div>
+          <div class="sleep-avg-card">
+            <span class="avg-icon">📅</span>
+            <span class="avg-val">{{ sleep_history|length }}</span>
+            <span class="avg-label">Days Tracked</span>
+          </div>
+        </div>
+      {% endif %}
+      <canvas id="sleepChart" height="200"></canvas>
+ 
+      <!-- Sleep Tips -->
+      <div class="sleep-tips">
+        <h4>💡 Sleep Tips</h4>
+        <div class="tip-list">
+          <div class="tip-item">🌙 Keep a consistent bedtime every night</div>
+          <div class="tip-item">📵 Avoid screens 1 hour before bed</div>
+          <div class="tip-item">🧘 Try the Sleep Wind-Down meditation</div>
+          <div class="tip-item">☕ No caffeine after 2pm</div>
+          <div class="tip-item">🌡️ Keep your bedroom cool (65–68°F)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Sleep History Table -->
+  <div class="glass-card animate-slide-up" style="margin-top:24px">
+    <h3><i class="fas fa-calendar-alt"></i> Sleep History</h3>
+    <div class="sleep-history-table">
+      <div class="sleep-table-header">
+        <span>Date</span><span>Hours</span><span>Quality</span><span>Rating</span>
+      </div>
+      {% if sleep_history %}
+        {% for entry in sleep_history | reverse %}
+        <div class="sleep-table-row">
+          <span>{{ entry.date }}</span>
+          <span>{{ entry.hours }}h</span>
+          <span>{{ entry.quality }}/10</span>
+          <span>
+            {% if entry.quality >= 8 %}😊 Excellent
+            {% elif entry.quality >= 6 %}🙂 Good
+            {% elif entry.quality >= 4 %}😐 Fair
+            {% else %}😴 Poor
+            {% endif %}
+          </span>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty-state"><span>🌙</span><p>No sleep logs yet. Start tracking tonight!</p></div>
+      {% endif %}
+    </div>
+  </div>
+</main>
+ 
+<div class="toast-notification" id="sleepToast">
+  <span class="toast-icon">🌙</span>
+  <div class="toast-content"><strong>Sleep Logged!</strong><span>+10 coins earned</span></div>
+</div>
+ 
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script>
+let sleepHours = 7.0;
+const qualityLabels = ['','Terrible 😫','Very Poor 😵','Poor 😴','Below Average 😔','Fair 😐','Okay 🙂','Good 😊','Great 😄','Excellent 🌟','Perfect ✨'];
+ 
+function adjustHours(delta) {
+  sleepHours = Math.min(12, Math.max(0, sleepHours + delta));
+  document.getElementById('hoursVal').textContent = sleepHours.toFixed(1);
+  document.getElementById('sleepHoursDisplay').textContent = sleepHours.toFixed(1);
+  const angle = (sleepHours / 12) * 360;
+  document.getElementById('moonCircle').style.background = `conic-gradient(var(--color-primary) ${angle}deg, rgba(77,150,255,0.15) ${angle}deg)`;
+}
+ 
+function updateSleepQuality(val) {
+  document.getElementById('sqVal').textContent = val;
+  document.getElementById('sleepQualityLabel').textContent = qualityLabels[parseInt(val)] || 'Good';
+}
+ 
+function logSleep() {
+  fetch('/sleep_tracker', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      sleep_hours: sleepHours,
+      sleep_quality: parseInt(document.getElementById('sleepQualInput').value)
+    })
+  })
+  .then(r => r.json())
+  .then(() => {
+    const toast = document.getElementById('sleepToast');
+    toast.classList.add('visible');
+    setTimeout(() => { toast.classList.remove('visible'); location.reload(); }, 2000);
+  });
+}
+ 
+// Sleep history chart
+const sleepHistory = {{ sleep_history | tojson }};
+const labels = sleepHistory.map(e => e.date.slice(5));
+const hoursData = sleepHistory.map(e => e.hours);
+const qualityData = sleepHistory.map(e => e.quality);
+ 
+if (document.getElementById('sleepChart')) {
+  const ctx = document.getElementById('sleepChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Hours Slept',
+          data: hoursData,
+          borderColor: '#4D96FF',
+          backgroundColor: 'rgba(77,150,255,0.1)',
+          tension: 0.4, fill: true,
+          pointBackgroundColor: '#4D96FF', pointRadius: 5, yAxisID: 'y'
+        },
+        {
+          label: 'Quality (1-10)',
+          data: qualityData,
+          borderColor: '#B8B8FF',
+          backgroundColor: 'rgba(184,184,255,0.1)',
+          tension: 0.4, fill: true,
+          pointBackgroundColor: '#B8B8FF', pointRadius: 5, yAxisID: 'y1'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { labels: { color: '#555', font: { family: 'Nunito' } } } },
+      scales: {
+        y: { min: 0, max: 12, title: { display: true, text: 'Hours', color: '#888' }, ticks: { color: '#888' }, grid: { color: 'rgba(0,0,0,0.04)' } },
+        y1: { min: 0, max: 10, position: 'right', title: { display: true, text: 'Quality', color: '#888' }, ticks: { color: '#888' }, grid: { display: false } },
+        x: { ticks: { color: '#888' }, grid: { display: false } }
+      }
+    }
+  });
+}
+ 
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+</script>
+</body>
+</html>
+ 

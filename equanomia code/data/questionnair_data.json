@@ -1,0 +1,193 @@
+{
+  "onboarding_questions": [
+    {
+      "id": "q1",
+      "question": "How are you feeling right now?",
+      "type": "emoji_select",
+      "options": [
+        {
+          "value": "great",
+          "emoji": "😄",
+          "label": "Great"
+        },
+        {
+          "value": "good",
+          "emoji": "🙂",
+          "label": "Good"
+        },
+        {
+          "value": "okay",
+          "emoji": "😐",
+          "label": "Okay"
+        },
+        {
+          "value": "low",
+          "emoji": "😔",
+          "label": "Low"
+        },
+        {
+          "value": "struggling",
+          "emoji": "😢",
+          "label": "Struggling"
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "question": "How stressed have you been lately?",
+      "type": "slider",
+      "min": 0,
+      "max": 10,
+      "labels": [
+        "Very Calm",
+        "Extremely Stressed"
+      ]
+    },
+    {
+      "id": "q3",
+      "question": "How well did you sleep last night?",
+      "type": "emoji_select",
+      "options": [
+        {
+          "value": "excellent",
+          "emoji": "😴",
+          "label": "Excellent"
+        },
+        {
+          "value": "good",
+          "emoji": "🙂",
+          "label": "Good"
+        },
+        {
+          "value": "fair",
+          "emoji": "😐",
+          "label": "Fair"
+        },
+        {
+          "value": "poor",
+          "emoji": "😵",
+          "label": "Poor"
+        },
+        {
+          "value": "terrible",
+          "emoji": "😫",
+          "label": "Terrible"
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "question": "What's your primary wellness goal?",
+      "type": "single_choice",
+      "options": [
+        {
+          "value": "stress_relief",
+          "label": "Reduce Stress",
+          "icon": "🧘"
+        },
+        {
+          "value": "better_sleep",
+          "label": "Sleep Better",
+          "icon": "🌙"
+        },
+        {
+          "value": "anxiety_control",
+          "label": "Manage Anxiety",
+          "icon": "💙"
+        },
+        {
+          "value": "mood_boost",
+          "label": "Boost Mood",
+          "icon": "☀️"
+        },
+        {
+          "value": "focus",
+          "label": "Improve Focus",
+          "icon": "🎯"
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "question": "How motivated do you feel right now?",
+      "type": "slider",
+      "min": 0,
+      "max": 10,
+      "labels": [
+        "No Motivation",
+        "Fully Motivated"
+      ]
+    },
+    {
+      "id": "q6",
+      "question": "How is your social energy?",
+      "type": "emoji_select",
+      "options": [
+        {
+          "value": "social",
+          "emoji": "🤝",
+          "label": "Very Social"
+        },
+        {
+          "value": "balanced",
+          "emoji": "⚖️",
+          "label": "Balanced"
+        },
+        {
+          "value": "introverted",
+          "emoji": "🏠",
+          "label": "Introverted"
+        },
+        {
+          "value": "isolated",
+          "emoji": "🚪",
+          "label": "Isolated"
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "question": "How anxious do you feel in daily life?",
+      "type": "slider",
+      "min": 0,
+      "max": 10,
+      "labels": [
+        "Not Anxious",
+        "Very Anxious"
+      ]
+    },
+    {
+      "id": "q8",
+      "question": "Which emotion best describes your current state?",
+      "type": "single_choice",
+      "options": [
+        {
+          "value": "hopeful",
+          "label": "Hopeful",
+          "icon": "🌱"
+        },
+        {
+          "value": "numb",
+          "label": "Numb",
+          "icon": "😶"
+        },
+        {
+          "value": "overwhelmed",
+          "label": "Overwhelmed",
+          "icon": "🌊"
+        },
+        {
+          "value": "grateful",
+          "label": "Grateful",
+          "icon": "🙏"
+        },
+        {
+          "value": "restless",
+          "label": "Restless",
+          "icon": "⚡"
+        }
+      ]
+    }
+  ],
+  "responses": {}
+}

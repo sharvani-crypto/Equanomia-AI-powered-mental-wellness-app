@@ -1,0 +1,150 @@
+{
+  "checkins": {
+    "demo": [
+      {
+        "date": "2025-01-15",
+        "mood": "calm",
+        "stress": 3,
+        "anxiety": 2,
+        "sleep_quality": 8,
+        "sleep_hours": 7.5,
+        "energy": 7,
+        "motivation": 8,
+        "gratitude": "Grateful for a peaceful morning and good coffee.",
+        "reflection": "Feeling much better today. Meditation helped."
+      },
+      {
+        "date": "2025-01-14",
+        "mood": "happy",
+        "stress": 2,
+        "anxiety": 1,
+        "sleep_quality": 9,
+        "sleep_hours": 8,
+        "energy": 9,
+        "motivation": 9,
+        "gratitude": "Grateful for my supportive friends.",
+        "reflection": "Had a wonderful day. Feeling energized."
+      },
+      {
+        "date": "2025-01-13",
+        "mood": "motivated",
+        "stress": 4,
+        "anxiety": 3,
+        "sleep_quality": 7,
+        "sleep_hours": 7,
+        "energy": 7,
+        "motivation": 8,
+        "gratitude": "Grateful for new opportunities ahead.",
+        "reflection": "Busy but productive. Feeling accomplished."
+      },
+      {
+        "date": "2025-01-12",
+        "mood": "neutral",
+        "stress": 5,
+        "anxiety": 4,
+        "sleep_quality": 6,
+        "sleep_hours": 6.5,
+        "energy": 5,
+        "motivation": 5,
+        "gratitude": "Grateful for my health.",
+        "reflection": "Average day. Nothing special."
+      },
+      {
+        "date": "2025-01-11",
+        "mood": "tired",
+        "stress": 6,
+        "anxiety": 5,
+        "sleep_quality": 4,
+        "sleep_hours": 5.5,
+        "energy": 3,
+        "motivation": 4,
+        "gratitude": "Grateful that the day is over.",
+        "reflection": "Struggled today. Need more rest."
+      },
+      {
+        "date": "2025-01-10",
+        "mood": "anxious",
+        "stress": 8,
+        "anxiety": 7,
+        "sleep_quality": 4,
+        "sleep_hours": 5,
+        "energy": 4,
+        "motivation": 3,
+        "gratitude": "Grateful for breathing exercises.",
+        "reflection": "Work was overwhelming. Tried deep breathing."
+      },
+      {
+        "date": "2025-01-09",
+        "mood": "calm",
+        "stress": 3,
+        "anxiety": 2,
+        "sleep_quality": 8,
+        "sleep_hours": 8,
+        "energy": 7,
+        "motivation": 7,
+        "gratitude": "Grateful for nature and fresh air.",
+        "reflection": "Went for a walk. Felt refreshed."
+      },
+      {
+        "date": "2026-05-31",
+        "mood": "neutral",
+        "stress": 5,
+        "anxiety": 5,
+        "sleep_quality": 7,
+        "sleep_hours": 7.0,
+        "energy": 5,
+        "motivation": 5,
+        "gratitude": "",
+        "reflection": ""
+      },
+      {
+        "date": "2026-06-01",
+        "mood": "tired",
+        "stress": 8,
+        "anxiety": 8,
+        "sleep_quality": 1,
+        "sleep_hours": 6.5,
+        "energy": 1,
+        "motivation": 0,
+        "gratitude": "",
+        "reflection": ""
+      },
+      {
+        "date": "2026-06-03",
+        "mood": "calm",
+        "stress": 2,
+        "anxiety": 1,
+        "sleep_quality": 9,
+        "sleep_hours": 7.5,
+        "energy": 2,
+        "motivation": 0,
+        "gratitude": "",
+        "reflection": ""
+      },
+      {
+        "date": "2026-06-11",
+        "mood": "neutral",
+        "stress": 5,
+        "anxiety": 5,
+        "sleep_quality": 7,
+        "sleep_hours": 7.0,
+        "energy": 5,
+        "motivation": 5,
+        "gratitude": "",
+        "reflection": ""
+      },
+      {
+        "date": "2026-06-15",
+        "mood": "neutral",
+        "stress": 5,
+        "anxiety": 5,
+        "sleep_quality": 7,
+        "sleep_hours": 7.0,
+        "energy": 5,
+        "motivation": 5,
+        "gratitude": "",
+        "reflection": ""
+      }
+    ]
+  }
+}

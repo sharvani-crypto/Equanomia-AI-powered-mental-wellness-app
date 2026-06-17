@@ -1,0 +1,293 @@
+{
+  "plans": [
+    {
+      "id": "stress_recovery",
+      "title": "7-Day Stress Recovery Plan",
+      "icon": "🧘",
+      "color": "#6BCB77",
+      "description": "A gentle 7-day program to reduce stress and restore inner calm.",
+      "days": [
+        {
+          "day": 1,
+          "focus": "Awareness",
+          "tasks": [
+            "5-min breathing exercise",
+            "Write 3 stressors",
+            "Take a 10-min walk"
+          ]
+        },
+        {
+          "day": 2,
+          "focus": "Release",
+          "tasks": [
+            "Body scan meditation",
+            "Journaling session",
+            "Limit social media"
+          ]
+        },
+        {
+          "day": 3,
+          "focus": "Grounding",
+          "tasks": [
+            "Grounding exercise",
+            "Gratitude list",
+            "Nature sounds break"
+          ]
+        },
+        {
+          "day": 4,
+          "focus": "Calm",
+          "tasks": [
+            "Guided meditation",
+            "CBT thought log",
+            "Soothing music session"
+          ]
+        },
+        {
+          "day": 5,
+          "focus": "Joy",
+          "tasks": [
+            "Do something you love",
+            "Share with someone",
+            "Celebrate small wins"
+          ]
+        },
+        {
+          "day": 6,
+          "focus": "Balance",
+          "tasks": [
+            "Yoga/stretching",
+            "Sleep routine check",
+            "Digital detox hour"
+          ]
+        },
+        {
+          "day": 7,
+          "focus": "Reflect",
+          "tasks": [
+            "Week reflection journal",
+            "Set wellness intentions",
+            "Reward yourself 🌟"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "better_sleep",
+      "title": "Better Sleep Program",
+      "icon": "🌙",
+      "color": "#4D96FF",
+      "description": "Improve your sleep quality and establish healthy bedtime routines.",
+      "days": [
+        {
+          "day": 1,
+          "focus": "Sleep Audit",
+          "tasks": [
+            "Track bedtime",
+            "No screens 1hr before bed",
+            "Calm music"
+          ]
+        },
+        {
+          "day": 2,
+          "focus": "Wind Down",
+          "tasks": [
+            "Evening breathing",
+            "Warm drink ritual",
+            "Dim lights early"
+          ]
+        },
+        {
+          "day": 3,
+          "focus": "Routine",
+          "tasks": [
+            "Set consistent bedtime",
+            "Sleep journal",
+            "Body scan"
+          ]
+        },
+        {
+          "day": 4,
+          "focus": "Environment",
+          "tasks": [
+            "Optimize sleep space",
+            "Check room temperature",
+            "Aromatherapy"
+          ]
+        },
+        {
+          "day": 5,
+          "focus": "Mind Clear",
+          "tasks": [
+            "Evening thought dump",
+            "No caffeine after 2pm",
+            "Relaxing stretch"
+          ]
+        },
+        {
+          "day": 6,
+          "focus": "Consistency",
+          "tasks": [
+            "Same wake-up time",
+            "Morning light exposure",
+            "Sleep tracker"
+          ]
+        },
+        {
+          "day": 7,
+          "focus": "Celebrate",
+          "tasks": [
+            "Sleep quality review",
+            "Note improvements",
+            "Set new sleep goals"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "anxiety_relief",
+      "title": "Anxiety Relief Routine",
+      "icon": "💙",
+      "color": "#B8B8FF",
+      "description": "Daily practices to calm anxiety and build emotional resilience.",
+      "days": [
+        {
+          "day": 1,
+          "focus": "Recognize",
+          "tasks": [
+            "Name your anxiety",
+            "Deep breathing 4-7-8",
+            "Grounding 5-4-3-2-1"
+          ]
+        },
+        {
+          "day": 2,
+          "focus": "Breathe",
+          "tasks": [
+            "Box breathing",
+            "Progressive relaxation",
+            "Calm walk"
+          ]
+        },
+        {
+          "day": 3,
+          "focus": "Challenge",
+          "tasks": [
+            "CBT thought reframing",
+            "Challenge anxious thoughts",
+            "Positive affirmations"
+          ]
+        },
+        {
+          "day": 4,
+          "focus": "Move",
+          "tasks": [
+            "Light exercise",
+            "Dance or stretch",
+            "Nature exposure"
+          ]
+        },
+        {
+          "day": 5,
+          "focus": "Connect",
+          "tasks": [
+            "Talk to someone",
+            "Community activity",
+            "Pet therapy if possible"
+          ]
+        },
+        {
+          "day": 6,
+          "focus": "Create",
+          "tasks": [
+            "Creative hobby",
+            "Art or music",
+            "Expressive journaling"
+          ]
+        },
+        {
+          "day": 7,
+          "focus": "Review",
+          "tasks": [
+            "Anxiety level check",
+            "Coping tools review",
+            "Celebrate courage"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mood_boost",
+      "title": "Mood Boost Challenge",
+      "icon": "☀️",
+      "color": "#FFD93D",
+      "description": "Lift your spirits with daily mood-enhancing activities.",
+      "days": [
+        {
+          "day": 1,
+          "focus": "Gratitude",
+          "tasks": [
+            "Write 5 gratitudes",
+            "Compliment someone",
+            "Smile exercise"
+          ]
+        },
+        {
+          "day": 2,
+          "focus": "Joy",
+          "tasks": [
+            "Do a joyful activity",
+            "Watch something funny",
+            "Dance freely"
+          ]
+        },
+        {
+          "day": 3,
+          "focus": "Connect",
+          "tasks": [
+            "Reach out to a friend",
+            "Random act of kindness",
+            "Share positivity"
+          ]
+        },
+        {
+          "day": 4,
+          "focus": "Nature",
+          "tasks": [
+            "Spend 20min outdoors",
+            "Notice beauty around",
+            "Sunlight break"
+          ]
+        },
+        {
+          "day": 5,
+          "focus": "Nourish",
+          "tasks": [
+            "Eat mindfully",
+            "Stay hydrated",
+            "Cook something new"
+          ]
+        },
+        {
+          "day": 6,
+          "focus": "Achieve",
+          "tasks": [
+            "Tick off a task",
+            "Learn something new",
+            "Celebrate yourself"
+          ]
+        },
+        {
+          "day": 7,
+          "focus": "Radiate",
+          "tasks": [
+            "Spread positivity",
+            "Share your journey",
+            "Plan next week joyfully"
+          ]
+        }
+      ]
+    }
+  ],
+  "user_plans": {}
+}
